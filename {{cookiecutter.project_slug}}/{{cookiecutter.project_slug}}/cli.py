@@ -7,6 +7,12 @@ import sys
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 import click
 {%- endif %}
+{%- if cookiecutter.command_line_interface|lower == 'typer' %}
+import typer
+
+
+app = typer.Typer()
+{%- endif %}
 
 {% if cookiecutter.command_line_interface|lower == 'click' %}
 @click.command()
