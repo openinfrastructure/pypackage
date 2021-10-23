@@ -1,5 +1,4 @@
-"""Console script for {{cookiecutter.project_slug}}."""
-
+"""Command line interface for {{cookiecutter.project_slug}}."""
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 import argparse
 {%- endif %}
@@ -10,29 +9,9 @@ import click
 {%- if cookiecutter.command_line_interface|lower == 'typer' %}
 import click
 import typer
-
-
-app = typer.Typer()
 {%- endif %}
 
-{% if cookiecutter.command_line_interface|lower == 'click' %}
-@click.command()
-def main(args=None):
-    """Console script for {{cookiecutter.project_slug}}."""
-    click.echo("Replace this message by putting your code into "
-               "{{cookiecutter.project_slug}}.cli.main")
-    click.echo("See click documentation at https://click.palletsprojects.com/")
-    return 0
-{%- endif %}
-{% if cookiecutter.command_line_interface|lower == 'typer' %}
-@app.command()
-def main():
-    """Console script for {{cookiecutter.project_slug}}."""
-    click.echo("Replace this message by putting your code into "
-               "{{cookiecutter.project_slug}}.cli.main")
-    click.echo("See Typer documentation at https://typer.tiangolo.com/")
-    return 0
-{%- endif %}
+
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 def main():
     """Console script for {{cookiecutter.project_slug}}."""
@@ -43,6 +22,26 @@ def main():
     print("Arguments: " + str(args._))
     print("Replace this message by putting your code into "
           "{{cookiecutter.project_slug}}.cli.main")
+    return 0
+{%- endif %}
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+@click.command()
+def main(args=None):
+    """Console script for {{cookiecutter.project_slug}}."""
+    click.echo("Replace this message by putting your code into "
+               "{{cookiecutter.project_slug}}.cli.main")
+    click.echo("See click documentation at https://click.palletsprojects.com/")
+    return 0
+{%- endif %}
+{%- if cookiecutter.command_line_interface|lower == 'typer' %}
+app = typer.Typer()
+
+@app.command()
+def main():
+    """Console script for {{cookiecutter.project_slug}}."""
+    click.echo("Replace this message by putting your code into "
+               "{{cookiecutter.project_slug}}.cli.main")
+    click.echo("See Typer documentation at https://typer.tiangolo.com/")
     return 0
 {%- endif %}
 

@@ -1,5 +1,5 @@
-.PHONY: clean clean-test clean-pyc clean-build docs help
-.DEFAULT_GOAL := help
+.PHONY: check clean clean-test clean-pyc clean-build docs format help
+.DEFAULT_GOAL := check
 
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
@@ -50,29 +50,22 @@ clean-test: ## remove test and coverage artifacts
 lint/flake8: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
 
-{%- if cookiecutter.use_black == 'y' %}
 lint/black: ## check style with black
 	black --check {{ cookiecutter.project_slug }} tests
-{%- endif %}
 
-lint: lint/flake8{%- if cookiecutter.use_black == 'y' %} lint/black{%- endif %} ## check style
+lint/pylint: ## check style with pylint
+	pylint *.py {{ cookiecutter.project_slug }} tests
+
+lint: lint/pylint ## check style
 
 test: ## run tests quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
 	pytest
-{%- else %}
-	python setup.py test
-{%- endif %}
 
 test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
 	coverage run --source {{ cookiecutter.project_slug }} -m pytest
-{%- else %}
-	coverage run --source {{ cookiecutter.project_slug }} setup.py test
-{%- endif %}
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
@@ -98,3 +91,8 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+format: ## Format code
+	yapf --in-place --recursive --style='{based_on_style: google, indent_width: 2}' *.py **/*.py
+
+check: format test lint ## format code and run tests

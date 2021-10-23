@@ -209,32 +209,6 @@ def test_bake_not_open_source(cookies):
         assert 'License' not in result.project.join('README.rst').read()
 
 
-def test_using_pytest(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_pytest': 'y'}
-    ) as result:
-        assert result.project.isdir()
-        test_file_path = result.project.join(
-            'tests/test_python_boilerplate.py'
-        )
-        lines = test_file_path.readlines()
-        assert "import pytest" in ''.join(lines)
-        # Test the new pytest target
-        run_inside_dir('pytest', str(result.project)) == 0
-
-
-def test_not_using_pytest(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        test_file_path = result.project.join(
-            'tests/test_python_boilerplate.py'
-        )
-        lines = test_file_path.readlines()
-        assert "import unittest" in ''.join(lines)
-        assert "import pytest" not in ''.join(lines)
-
-
 # def test_project_with_hyphen_in_module_name(cookies):
 #     result = cookies.bake(
 #         extra_context={'project_name': 'something-with-a-dash'}
@@ -332,16 +306,3 @@ def test_bake_with_argparse_console_script_cli(cookies):
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert 'Show this message' in help_result.output
-
-
-@pytest.mark.parametrize("use_black,expected", [("y", True), ("n", False)])
-def test_black(cookies, use_black, expected):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_black': use_black}
-    ) as result:
-        assert result.project.isdir()
-        requirements_path = result.project.join('requirements_dev.txt')
-        assert ("black" in requirements_path.read()) is expected
-        makefile_path = result.project.join('Makefile')
-        assert ("black --check" in makefile_path.read()) is expected
