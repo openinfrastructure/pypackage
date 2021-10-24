@@ -1,16 +1,22 @@
 #!/usr/bin/env python
-
-"""The setup script."""
+"""The pip package setup script."""
 
 from setuptools import setup, find_packages
 
 with open('README.rst', encoding='utf-8') as readme_file:
-    readme = readme_file.read()
+  readme = readme_file.read()
 
 with open('HISTORY.rst', encoding='utf-8') as history_file:
-    history = history_file.read()
+  history = history_file.read()
 
-requirements = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %}{%- if cookiecutter.command_line_interface|lower == 'typer' %}'typer>=0.4.0',{%- endif %} ]
+requirements = [
+    {%- if cookiecutter.command_line_interface|lower == 'click' %}
+    'Click>=8.0',
+    {%- endif %}
+    {%- if cookiecutter.command_line_interface|lower == 'typer' %}
+    'typer>=0.4.0',
+    {%- endif %}
+]
 
 test_requirements = ['pytest>=3']
 
@@ -39,13 +45,11 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     description="{{ cookiecutter.project_short_description }}",
-    {%- if 'no' not in cookiecutter.command_line_interface|lower %}
+{%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
-        'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',
-        ],
+        'console_scripts': ['{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',],
     },
-    {%- endif %}
+{%- endif %}
     install_requires=requirements,
 {%- if cookiecutter.open_source_license in license_classifiers %}
     license="{{ cookiecutter.open_source_license }}",
@@ -54,7 +58,8 @@ setup(
     include_package_data=True,
     keywords='{{ cookiecutter.project_slug }}',
     name='{{ cookiecutter.project_slug }}',
-    packages=find_packages(include=['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']),
+    packages=find_packages(
+        include=['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']),
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',

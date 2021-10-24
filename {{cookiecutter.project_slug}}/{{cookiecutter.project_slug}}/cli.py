@@ -7,7 +7,6 @@ import sys
 import click
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'typer' %}
-import click
 import typer
 {%- endif %}
 from {{ cookiecutter.project_slug }} import __version__
@@ -15,43 +14,46 @@ from {{ cookiecutter.project_slug }} import __version__
 
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 def main():
-    """Console script for {{cookiecutter.project_slug}}."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument('_', nargs='*')
-    args = parser.parse_args()
+  """Console script for {{cookiecutter.project_slug}}."""
+  parser = argparse.ArgumentParser()
+  parser.add_argument('_', nargs='*')
+  args = parser.parse_args()
 
-    print("Arguments: " + str(args._))
-    print("Replace this message by putting your code into "
-          "{{cookiecutter.project_slug}}.cli.main")
-    return 0
+  print("Arguments: " + str(args._))
+  print("Replace this message by putting your code into "
+        "{{cookiecutter.project_slug}}.cli.main")
+  return 0
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 @click.command()
 def main(args=None):
-    """Console script for {{cookiecutter.project_slug}}."""
-    click.echo("Replace this message by putting your code into "
-               "{{cookiecutter.project_slug}}.cli.main")
-    click.echo("See click documentation at https://click.palletsprojects.com/")
-    return 0
+  """Console script for {{cookiecutter.project_slug}}."""
+  click.echo("Replace this message by putting your code into "
+              "{{cookiecutter.project_slug}}.cli.main")
+  click.echo("See click documentation at https://click.palletsprojects.com/")
+  return 0
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'typer' %}
+
 app = typer.Typer()
+
 
 @app.command()
 def main():
-    """Console script for {{cookiecutter.project_slug}}."""
-    click.echo("Replace this message by putting your code into "
-               "{{cookiecutter.project_slug}}.cli.main")
-    click.echo("See Typer documentation at https://typer.tiangolo.com/")
-    return 0
+  """Console script for {{cookiecutter.project_slug}}."""
+  typer.echo("Replace this message by putting your code into "
+             "{{cookiecutter.project_slug}}.cli.main")
+  typer.echo("See Typer documentation at https://typer.tiangolo.com/")
+  return 0
+
 
 @app.command()
 def version():
-    """Print the version and exit"""
-    typer.echo(__version__)
-    return 0
+  """Print the version and exit"""
+  typer.echo(__version__)
+  return 0
 {%- endif %}
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+  sys.exit(main())  # pragma: no cover
