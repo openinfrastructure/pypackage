@@ -10,6 +10,7 @@ import click
 import click
 import typer
 {%- endif %}
+from {{ cookiecutter.project_slug }} import __version__
 
 
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
@@ -42,6 +43,12 @@ def main():
     click.echo("Replace this message by putting your code into "
                "{{cookiecutter.project_slug}}.cli.main")
     click.echo("See Typer documentation at https://typer.tiangolo.com/")
+    return 0
+
+@app.command()
+def version():
+    """Print the version and exit"""
+    typer.echo(__version__)
     return 0
 {%- endif %}
 
