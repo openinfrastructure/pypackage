@@ -1,14 +1,23 @@
-bump2version==0.5.11
-wheel==0.33.6
-watchdog==0.9.0
-tox==3.14.0
-coverage==4.5.4
-Sphinx==1.8.5
-twine==1.14.0
-pylint==2.11.1
-pytest==6.2.4
-yapf==0.31.0
+wheel==0.37.0
+# Command and subcommand flag parser library
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
-Click>=8.0,==8.*{% endif %}
+Click>=8.0,==8.*
+{% endif -%}
 {% if cookiecutter.command_line_interface|lower == 'typer' -%}
-typer>=0.4.0,<2.0.0{% endif %}
+typer>=0.4.0,<2.0.0
+{% endif %}
+# File watcher to run tests on file changes
+watchdog==2.1.6
+# For documentation generation
+Sphinx==4.2.0
+# Markdown support for documentation generation
+myst-parser==0.15.2
+# Package distribution
+twine==1.14.0
+# Formatting and style
+yapf==0.31.1
+# Testing tools
+tox==3.24.4
+pylint==2.11.1
+pytest==6.2.5
+coverage==6.0.2
