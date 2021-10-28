@@ -15,7 +15,7 @@ myst-parser==0.15.2
 # Package distribution
 twine==1.14.0
 # Formatting and style
-yapf==0.31.1
+yapf==0.31.0
 # Testing tools
 tox==3.24.4
 pylint==2.11.1

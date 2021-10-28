@@ -1,11 +1,10 @@
 {
-  "full_name": "Open Infrastructure Services, LLC",
+  "full_name": "Open Infrastructure Services",
   "email": "info@openinfrastructure.co",
   "github_username": "openinfrastructure",
-  "project_name": "Python Boilerplate",
+  "project_name": "Emanon",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "OIS CLI template",
-  "pypi_username": "{{ cookiecutter.github_username }}",
   "version": "0.1.0",
   "command_line_interface": ["Typer", "Click", "No command-line interface"],
   "open_source_license": ["Apache Software License 2.0", "Not open source"]
