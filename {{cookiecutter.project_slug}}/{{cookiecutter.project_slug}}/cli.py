@@ -9,6 +9,7 @@ import click
 {%- if cookiecutter.command_line_interface|lower == 'typer' %}
 import typer
 {%- endif %}
+import debugpy
 from {{ cookiecutter.project_slug }} import __version__
 
 
@@ -38,12 +39,17 @@ def main(args=None):
 app = typer.Typer()
 
 
-@app.command()
-def main():
+@app.callback()
+def main(debugger: bool = False,
+         debug_host: str = "127.0.0.1",
+         debug_port: int = 5678):
   """Console script for {{cookiecutter.project_slug}}."""
-  typer.echo("Replace this message by putting your code into "
-             "{{cookiecutter.project_slug}}.cli.main")
-  typer.echo("See Typer documentation at https://typer.tiangolo.com/")
+  # Stash the global option values in state which is accessible to subcommands
+  if debugger:
+    typer.echo(
+        f"Waiting for debugger client to attach to {debug_host}:{debug_port}")
+    debugpy.listen(5678)
+    debugpy.wait_for_client()
   return 0
 
 
@@ -51,6 +57,14 @@ def main():
 def version():
   """Print the version and exit"""
   typer.echo(__version__)
+  return 0
+
+
+@app.command()
+def bugged(inbound: str = 'garbage'):
+  """Example breakpoint for use with --debugger"""
+  typer.echo(f"{inbound} in {inbound} out...")
+  # breakpoint
   return 0
 {%- endif %}
 
