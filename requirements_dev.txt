@@ -1,9 +1,5 @@
-bump2version==0.5.11
-watchdog==0.9.0
-flake8>=3.9.2,==3.*
-tox==3.14.0
-coverage==4.5.4
-Sphinx==1.8.5
-twine==1.14.0
+watchdog==2.1.6
+tox==3.24.4
+Sphinx==4.2.0
+coverage==6.0.2
 pytest==6.*,<7.0
-typer>=0.4.0,<2.0.0

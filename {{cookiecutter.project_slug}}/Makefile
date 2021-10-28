@@ -47,9 +47,6 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint/flake8: ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
-
 lint/black: ## check style with black
 	black --check {{ cookiecutter.project_slug }} tests
 
@@ -93,6 +90,6 @@ install: clean ## install the package to the active Python's site-packages
 	python setup.py install
 
 format: ## Format code
-	yapf --in-place --recursive --style='{based_on_style: google, indent_width: 2}' *.py **/*.py
+	yapf --in-place --recursive *.py {{ cookiecutter.project_slug }} tests 
 
 check: format test lint ## format code and run tests
