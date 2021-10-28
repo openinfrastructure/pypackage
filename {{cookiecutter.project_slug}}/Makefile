@@ -1,4 +1,4 @@
-.PHONY: check clean clean-test clean-pyc clean-build docs format help
+.PHONY: check clean clean-test clean-pyc clean-build docs format help venv
 .DEFAULT_GOAL := check
 
 define BROWSER_PYSCRIPT
@@ -22,6 +22,14 @@ endef
 export PRINT_HELP_PYSCRIPT
 
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
+
+# Setup a venv compatible with VS Code and friends
+# source env/bin/activate outside of make to use this in a shell
+venv:
+	python3 -mvenv env
+	env/bin/pip install --upgrade pip wheel
+	env/bin/pip install -r requirements_dev.txt
+	env/bin/pip install -e .
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)

@@ -1,0 +1,5 @@
+{
+  "cSpell.customDictionaries": {
+    "internal": { "name": "internal", "path": "${workspaceFolder}/.vscode/dictionary.txt", "addWords": true }
+  },
+}

@@ -9,7 +9,3 @@ universal = 1
 ignore_patterns = [
   "tmp/**/*.py"
 ]
-
-[tool.yapf]
-based_on_style = "yapf"
-indent_width = 2

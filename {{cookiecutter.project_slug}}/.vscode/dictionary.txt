@@ -1,0 +1,12 @@
+{{ cookiecutter.project_name }}
+{{ cookiecutter.project_slug }}
+{{ cookiecutter.full_name }}
+{{ cookiecutter.github_username }}
+cookiecutter
+debugpy
+Eemanon
+emanon
+kwargs
+pypackage
+Traceback
+typer
