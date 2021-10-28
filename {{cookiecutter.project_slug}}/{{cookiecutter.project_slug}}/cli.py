@@ -64,7 +64,8 @@ def version():
 def bugged(inbound: str = 'garbage'):
   """Example breakpoint for use with --debugger"""
   typer.echo(f"{inbound} in {inbound} out...")
-  # breakpoint
+  # Note, you can also click the red dot to the left of the line number in vs code to set a breakpoint
+  debugpy.breakpoint()
   return 0
 {%- endif %}
 
