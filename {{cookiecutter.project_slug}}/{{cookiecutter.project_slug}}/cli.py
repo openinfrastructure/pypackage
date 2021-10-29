@@ -10,6 +10,7 @@ import click
 import typer
 {%- endif %}
 import debugpy
+import pendulum
 from {{ cookiecutter.project_slug }} import __version__
 
 
@@ -66,6 +67,15 @@ def bugged(inbound: str = 'garbage'):
   typer.echo(f"{inbound} in {inbound} out...")
   # Note, you can also click the red dot to the left of the line number in vs code to set a breakpoint
   debugpy.breakpoint()
+  return 0
+
+
+@app.command()
+def future(days: int = 100):
+  """Print a RFC 3339 datetime some number of days in the future."""
+  dt = pendulum.now()
+  ft = dt.add(days=days)
+  typer.echo(ft.to_rfc3339_string())
   return 0
 {%- endif %}
 

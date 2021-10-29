@@ -22,3 +22,5 @@ pylint==2.11.1
 pytest==6.2.5
 coverage==6.0.2
 debugpy==1.5.1
+# Date time library with good timezone support
+pendulum==2.1.2

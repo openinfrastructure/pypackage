@@ -74,18 +74,20 @@ If there's a better library for the use case please let us know by filing an iss
 | ---------------------- | ------------------------ |
 | Command Line Interface | [Typer]                  |
 | Config Files           | No opinion (yet)         |
+| Date time stamps       | [rfc3339]                |
 | Structured Logging     | [structlog]              |
 | Documentation          | [Sphinx] [MyST] markdown |
 | Date Time              | [Pendulum]               |
 | HTTP Client            | [requests]               |
 | Retries                | [Tenacity]               |
 | RPC                    | [grpc]                   |
-| JSON loading           | [Dacite]'s `from_dict`   |
+| JSON loading           | [Dacite] `from_dict`     |
 | JSON validation        | [jsonschema]             |
 | Debugger               | [debugpy]                |
 | Testing                | [pytest]                 |
 | Testing Matrix         | [tox]                    |
-| Web App                | [flask]                  |
+| Web App Simple         | [flask]                  |
+| Web App API            | [fastapi]                |
 | Web App with DB        | [django], [drf]          |
 | API Specification      | [OpenAPI]                |
 | File Uploads           | NGINX + uwsgi            |
@@ -108,3 +110,5 @@ If there's a better library for the use case please let us know by filing an iss
 [requests]: https://docs.python-requests.org/en/latest/
 [grpc]: https://grpc.io/docs/languages/python/
 [jsonschema]: https://python-jsonschema.readthedocs.io/en/stable/#
+[fastapi]: https://fastapi.tiangolo.com/
+[rfc3339]: https://www.ietf.org/rfc/rfc3339.txt
