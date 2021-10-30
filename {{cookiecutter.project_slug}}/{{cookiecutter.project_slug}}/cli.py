@@ -73,9 +73,9 @@ def bugged(inbound: str = 'garbage'):
 @app.command()
 def future(days: int = 100):
   """Print a RFC 3339 datetime some number of days in the future."""
-  dt = pendulum.now()
-  ft = dt.add(days=days)
-  typer.echo(ft.to_rfc3339_string())
+  stamp = pendulum.now()
+  later = stamp.add(days=days)
+  typer.echo(later.to_rfc3339_string())
   return 0
 {%- endif %}
 
