@@ -11,6 +11,7 @@ from {{ cookiecutter.project_slug }} import cli
 import {{ cookiecutter.project_slug }}
 {%- if cookiecutter.command_line_interface|lower == 'typer' %}
 
+
 runner = CliRunner()
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}

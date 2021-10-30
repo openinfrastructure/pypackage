@@ -37,18 +37,15 @@ def main(args=None):
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'typer' %}
 
+
 app = typer.Typer()
 
 
 @app.callback()
-def main(debugger: bool = False,
-         debug_host: str = "127.0.0.1",
-         debug_port: int = 5678):
+def main(debugger: bool = False, debug_host: str = "127.0.0.1", debug_port: int = 5678):
   """Console script for {{cookiecutter.project_slug}}."""
-  # Stash the global option values in state which is accessible to subcommands
   if debugger:
-    typer.echo(
-        f"Waiting for debugger client to attach to {debug_host}:{debug_port}")
+    typer.echo(f"Waiting for debugger client to attach to {debug_host}:{debug_port}")
     debugpy.listen(5678)
     debugpy.wait_for_client()
   return 0
