@@ -1,52 +1,22 @@
 """Command line interface for {{cookiecutter.project_slug}}."""
-{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
-import argparse
-{%- endif %}
 import sys
-{%- if cookiecutter.command_line_interface|lower == 'click' %}
-import click
-{%- endif %}
-{%- if cookiecutter.command_line_interface|lower == 'typer' %}
 import typer
-{%- endif %}
 import debugpy
 import pendulum
 from {{ cookiecutter.project_slug }} import __version__
-
-
-{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
-def main():
-  """Console script for {{cookiecutter.project_slug}}."""
-  parser = argparse.ArgumentParser()
-  parser.add_argument('_', nargs='*')
-  args = parser.parse_args()
-
-  print("Arguments: " + str(args._))
-  print("Replace this message by putting your code into "
-        "{{cookiecutter.project_slug}}.cli.main")
-  return 0
-{%- endif %}
-{%- if cookiecutter.command_line_interface|lower == 'click' %}
-@click.command()
-def main(args=None):
-  """Console script for {{cookiecutter.project_slug}}."""
-  click.echo("Replace this message by putting your code into "
-              "{{cookiecutter.project_slug}}.cli.main")
-  click.echo("See click documentation at https://click.palletsprojects.com/")
-  return 0
-{%- endif %}
-{%- if cookiecutter.command_line_interface|lower == 'typer' %}
-
 
 app = typer.Typer()
 
 
 @app.callback()
-def main(debugger: bool = False, debug_host: str = "127.0.0.1", debug_port: int = 5678):
+def main(
+  debugger: bool = typer.Option(False, envvar="DEBUGGER"),
+  debugger_port: int = typer.Option(5678, envvar="DEBUGGER_PORT"),
+):
   """Console script for {{cookiecutter.project_slug}}."""
   if debugger:
-    typer.echo(f"Waiting for debugger client to attach to {debug_host}:{debug_port}")
-    debugpy.listen(5678)
+    typer.echo(f"Waiting for debugger client to attach to port {debugger_port}")
+    debugpy.listen(debugger_port)
     debugpy.wait_for_client()
   return 0
 
@@ -74,7 +44,16 @@ def future(days: int = 100):
   later = stamp.add(days=days)
   typer.echo(later.to_rfc3339_string())
   return 0
-{%- endif %}
+
+
+@app.command()
+def mandatory(required: str = typer.Option(..., envvar="REQUIRED")):
+  """Example of a required 'option' with a 12-Factor style env var and no default value.
+
+  This is often used for api_key and other auth related flags.
+  """
+  typer.echo(f"Required 'option': {required}")
+  return 0
 
 
 if __name__ == "__main__":

@@ -1,11 +1,6 @@
 wheel==0.37.0
 # Command and subcommand flag parser library
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
-Click>=8.0,==8.*
-{% endif -%}
-{% if cookiecutter.command_line_interface|lower == 'typer' -%}
 typer>=0.4.0,<2.0.0
-{% endif %}
 # File watcher to run tests on file changes
 watchdog==2.1.6
 # For documentation generation
